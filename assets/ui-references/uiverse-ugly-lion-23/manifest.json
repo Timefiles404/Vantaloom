@@ -4,9 +4,19 @@
   "author": "codebykay101",
   "type": "card",
   "license": "MIT as displayed on source page",
-  "status": "source-record-only",
+  "status": "user-provided-react-reference",
+  "localFiles": [
+    "Card.tsx"
+  ],
+  "components": [
+    "UiverseGlassIconCards",
+    "GithubGlassCard",
+    "CodeGlassCard",
+    "EarnGlassCard"
+  ],
   "notes": [
-    "当前环境被 Cloudflare 拦截，未自动拉取原始 HTML/CSS。",
+    "已根据用户提供的 React/styled-components 代码整理为本地参考组件。",
+    "当前环境被 Cloudflare 拦截，未自动校验原始 HTML/CSS。",
     "作为黑色毛玻璃卡片材质参考，不直接作为产品组件。"
   ]
 }
