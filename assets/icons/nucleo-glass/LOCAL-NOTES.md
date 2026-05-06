@@ -12,6 +12,8 @@
 - 包内许可证为 MIT
 - React 和 Vue 构建产物均已保留
 - React 组件清单见 `manifest.json`
+- 静态素材板预览数据见 `preview-manifest.json`
+- `preview-manifest.json` 包含 100 个真实图标，未包含通用 `Icon` helper 导出
 
 注意事项：
 

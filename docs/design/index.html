@@ -292,6 +292,50 @@
         white-space: nowrap;
       }
 
+      .icon-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+        gap: 10px;
+        max-height: 520px;
+        overflow: auto;
+        padding-right: 4px;
+      }
+
+      .icon-tile {
+        min-height: 112px;
+        display: grid;
+        grid-template-rows: 56px auto;
+        align-items: center;
+        justify-items: center;
+        gap: 8px;
+        padding: 12px 8px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface-strong);
+      }
+
+      .icon-preview {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+      }
+
+      .icon-preview svg {
+        width: 42px;
+        height: 42px;
+        display: block;
+      }
+
+      .icon-name {
+        width: 100%;
+        color: var(--foreground);
+        font-size: 12px;
+        line-height: 1.25;
+        text-align: center;
+        overflow-wrap: anywhere;
+      }
+
       .asset-card {
         grid-column: span 6;
       }
@@ -489,8 +533,8 @@
             <span class="tag" id="nucleoCount">loading</span>
           </div>
           <h2>图标组件名称</h2>
-          <p class="note">引用来源：assets/icons/nucleo-glass/manifest.json</p>
-          <div class="name-grid" id="nucleoNames"></div>
+          <p class="note">引用来源：assets/icons/nucleo-glass/preview-manifest.json。图标会跟随右上角黑白主题切换。</p>
+          <div class="icon-grid" id="nucleoNames"></div>
         </article>
 
         <article class="card asset-card">
@@ -567,13 +611,13 @@
       };
 
       Promise.all([
-        loadManifest("/assets/icons/nucleo-glass/manifest.json"),
+        loadManifest("/assets/icons/nucleo-glass/preview-manifest.json"),
         loadManifest("/assets/motion/reactbits/manifest.json"),
         loadManifest("/assets/ux/shadcn/manifest.json")
       ])
         .then(([nucleo, reactBits, shadcn]) => {
-          renderNames("nucleoNames", nucleo.components);
-          document.getElementById("nucleoCount").textContent = `${nucleo.componentCount} icons`;
+          renderIcons("nucleoNames", nucleo.icons);
+          document.getElementById("nucleoCount").textContent = `${nucleo.iconCount} icons`;
 
           renderNames("reactBitsNames", reactBits.components);
           document.getElementById("reactBitsCount").textContent =
@@ -588,6 +632,55 @@
         .catch((error) => {
           console.error(error);
         });
+
+      const iconPalette = () => {
+        const isDark = root.classList.contains("dark");
+        return isDark
+          ? { stopColor1: "#f6f6f6", stopColor2: "#8f8f8f" }
+          : { stopColor1: "#5f5f5f", stopColor2: "#151515" };
+      };
+
+      const recolorIconContent = (content) => {
+        const { stopColor1, stopColor2 } = iconPalette();
+        return content
+          .replaceAll('stop-color="#575757"', `stop-color="${stopColor1}"`)
+          .replaceAll('stop-color="#151515"', `stop-color="${stopColor2}"`);
+      };
+
+      let currentIcons = [];
+
+      const renderIcons = (targetId, icons) => {
+        currentIcons = icons;
+        const target = document.getElementById(targetId);
+        target.replaceChildren(
+          ...icons.map((icon) => {
+            const item = document.createElement("div");
+            item.className = "icon-tile";
+            item.title = icon.name;
+
+            const preview = document.createElement("div");
+            preview.className = "icon-preview";
+            preview.innerHTML = `<svg viewBox="${icon.viewBox}" aria-hidden="true">${recolorIconContent(
+              icon.content
+            )}</svg>`;
+
+            const label = document.createElement("div");
+            label.className = "icon-name";
+            label.textContent = icon.name;
+
+            item.append(preview, label);
+            return item;
+          })
+        );
+      };
+
+      const refreshIconColors = () => {
+        if (currentIcons.length > 0) {
+          renderIcons("nucleoNames", currentIcons);
+        }
+      };
+
+      button.addEventListener("click", refreshIconColors);
     </script>
   </body>
 </html>
