@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vantaloom UI 素材板</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --background: #f4f4f2;
+        --foreground: #181818;
+        --muted: #666;
+        --surface: rgba(255, 255, 255, 0.78);
+        --surface-strong: #fff;
+        --border: rgba(0, 0, 0, 0.12);
+        --shadow: 0 22px 70px rgba(0, 0, 0, 0.1);
+        --tag: #ededeb;
+      }
+
+      .dark {
+        color-scheme: dark;
+        --background: #101010;
+        --foreground: #f3f3f3;
+        --muted: #a8a8a8;
+        --surface: rgba(28, 28, 28, 0.72);
+        --surface-strong: #181818;
+        --border: rgba(255, 255, 255, 0.14);
+        --shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
+        --tag: #242424;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.42), rgba(220, 220, 220, 0.16)),
+          var(--background);
+        color: var(--foreground);
+        font-family:
+          Inter, "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      }
+
+      button,
+      a {
+        font: inherit;
+      }
+
+      a {
+        color: inherit;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+      }
+
+      .page {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 40px 0 64px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+
+      .title-block {
+        max-width: 780px;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 42px;
+        line-height: 1.08;
+        letter-spacing: 0;
+      }
+
+      .summary {
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      .theme-toggle {
+        min-width: 108px;
+        height: 38px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+        color: var(--foreground);
+        cursor: pointer;
+        backdrop-filter: blur(16px);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 16px;
+      }
+
+      .card {
+        grid-column: span 6;
+        min-height: 260px;
+        padding: 22px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
+      }
+
+      .card.solid {
+        background: var(--surface-strong);
+        box-shadow: none;
+      }
+
+      .card.wide {
+        grid-column: span 12;
+      }
+
+      .card h2 {
+        margin: 0 0 12px;
+        font-size: 22px;
+        line-height: 1.2;
+        letter-spacing: 0;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0 0 16px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 4px 9px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--tag);
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      li {
+        margin: 8px 0;
+        color: var(--foreground);
+        line-height: 1.55;
+      }
+
+      .note {
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .swatch {
+        min-height: 64px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--color);
+      }
+
+      @media (max-width: 840px) {
+        .topbar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        h1 {
+          font-size: 34px;
+        }
+
+        .card {
+          grid-column: span 12;
+        }
+
+        .swatches {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="topbar">
+        <div class="title-block">
+          <p class="eyebrow">Vantaloom Design Board</p>
+          <h1>UI 素材与设计准则平铺整理</h1>
+          <p class="summary">
+            这里不是产品页面，只是把当前 UI 库的风格方向、素材来源、组件取向和注意事项放在一个浏览器里快速扫一遍。
+          </p>
+        </div>
+        <button class="theme-toggle" type="button" id="themeToggle">切换黑白</button>
+      </header>
+
+      <section class="grid" aria-label="UI 素材板">
+        <article class="card">
+          <div class="meta">
+            <span class="tag">图标系统</span>
+            <span class="tag">素材来源</span>
+            <span class="tag">已拉取本地</span>
+          </div>
+          <h2>Nucleo</h2>
+          <ul>
+            <li>适合作为后续完整图标体系候选。</li>
+            <li>分类覆盖工程工具常用区域：文件、图表、设备、开发、用户、安全、布局等。</li>
+            <li>支持 Outline、Fill、Colored 等风格，以及 SVG、TSX、React、PNG 等导出。</li>
+            <li>已本地保存公开 MIT 包 nucleo-glass-icons，包含 101 个 React 图标组件。</li>
+          </ul>
+          <p class="note">本地目录：assets/icons/nucleo-glass</p>
+        </article>
+
+        <article class="card">
+          <div class="meta">
+            <span class="tag">毛玻璃</span>
+            <span class="tag">黑色卡片</span>
+            <span class="tag">MIT</span>
+            <span class="tag">来源记录</span>
+          </div>
+          <h2>Uiverse 黑色毛玻璃卡片</h2>
+          <ul>
+            <li>参考黑色卡片、半透明边框、轻微层次和玻璃质感。</li>
+            <li>适合抽象成 panel、modal、agent card、status card 的材质 token。</li>
+            <li>不直接复制页面，只提炼为 solid 与 glass 两种材质模式。</li>
+            <li>长文本区域要克制玻璃效果，避免阅读疲劳。</li>
+          </ul>
+          <p class="note">当前环境被 Cloudflare 拦截，已保留来源与授权记录，未自动拉取源码。</p>
+        </article>
+
+        <article class="card solid">
+          <div class="meta">
+            <span class="tag">动效素材</span>
+            <span class="tag">微交互</span>
+            <span class="tag">已拉取本地</span>
+          </div>
+          <h2>React Bits</h2>
+          <ul>
+            <li>适合收集文字动效、状态反馈、背景动效和交互动效。</li>
+            <li>Vantaloom 只把它作为动效素材池，不作为主视觉。</li>
+            <li>优先选择短、轻、可关闭的动效。</li>
+            <li>长日志、diff、计划内容不使用持续动画。</li>
+          </ul>
+          <p class="note">本地目录：assets/motion/reactbits，已保存 131 个组件族的 registry JSON。</p>
+        </article>
+
+        <article class="card solid">
+          <div class="meta">
+            <span class="tag">UX 框架</span>
+            <span class="tag">组件体系</span>
+            <span class="tag">已拉取本地</span>
+          </div>
+          <h2>shadcn/ui</h2>
+          <ul>
+            <li>借鉴开放代码式组件库思路，而不是依赖难改的黑盒 UI 库。</li>
+            <li>使用 CSS variables 和语义 token 管理主题。</li>
+            <li>优先组件：Button、Input、Dialog、Tooltip、Tabs、Sidebar、Command、Scroll Area、Resizable。</li>
+            <li>后续组件代码应进入 packages/ui，由应用按需组合。</li>
+          </ul>
+          <p class="note">本地目录：assets/ux/shadcn，已保存 16 个候选组件 registry JSON。</p>
+        </article>
+
+        <article class="card wide">
+          <div class="meta">
+            <span class="tag">Vantaloom UI</span>
+            <span class="tag">黑白切换</span>
+            <span class="tag">纯色与毛玻璃</span>
+          </div>
+          <h2>当前设计准则</h2>
+          <ul>
+            <li>UI 库先承载 token、主题、材质和工具函数，不负责拼页面。</li>
+            <li>视觉以黑白可切换、纯色面板和毛玻璃面板为主。</li>
+            <li>工程工具内容优先，动效只用于反馈、状态转场和少量品牌区域。</li>
+            <li>所有核心 UI 基础能力放入 packages/ui，避免只服务桌面端。</li>
+            <li>后续长文本、日志、diff、agent trace 需要稳定尺寸和虚拟滚动策略。</li>
+          </ul>
+          <div class="swatches" aria-label="主题色块">
+            <div class="swatch" style="--color: #ffffff"></div>
+            <div class="swatch" style="--color: #f4f4f2"></div>
+            <div class="swatch" style="--color: #d9d9d6"></div>
+            <div class="swatch" style="--color: #8a8a86"></div>
+            <div class="swatch" style="--color: #2b2b2b"></div>
+            <div class="swatch" style="--color: #181818"></div>
+            <div class="swatch" style="--color: rgba(255, 255, 255, 0.72)"></div>
+            <div class="swatch" style="--color: rgba(28, 28, 28, 0.72)"></div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const root = document.documentElement;
+      const button = document.getElementById("themeToggle");
+      button.addEventListener("click", () => {
+        root.classList.toggle("dark");
+      });
+    </script>
+  </body>
+</html>

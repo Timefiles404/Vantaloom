@@ -1,0 +1,158 @@
+{
+  "name": "shadcn-ui-new-york-registry-selection",
+  "source": "https://ui.shadcn.com/docs",
+  "registryBase": "https://ui.shadcn.com/r/styles/new-york",
+  "license": "MIT",
+  "pulled": "2026-05-06T12:40:04.238Z",
+  "componentCount": 16,
+  "components": [
+    {
+      "file": "badge.json",
+      "name": "badge",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-slot"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "file": "button.json",
+      "name": "button",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-slot"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "file": "card.json",
+      "name": "card",
+      "type": "registry:ui",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "file": "command.json",
+      "name": "command",
+      "type": "registry:ui",
+      "dependencies": [
+        "cmdk"
+      ],
+      "registryDependencies": [
+        "dialog"
+      ]
+    },
+    {
+      "file": "dialog.json",
+      "name": "dialog",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-dialog"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "file": "dropdown-menu.json",
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "file": "input.json",
+      "name": "input",
+      "type": "registry:ui",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "file": "popover.json",
+      "name": "popover",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "file": "progress.json",
+      "name": "progress",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-progress"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "file": "resizable.json",
+      "name": "resizable",
+      "type": "registry:ui",
+      "dependencies": [
+        "react-resizable-panels"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "file": "scroll-area.json",
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-scroll-area"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "file": "sidebar.json",
+      "name": "sidebar",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "separator",
+        "sheet",
+        "tooltip",
+        "input",
+        "use-mobile",
+        "skeleton"
+      ]
+    },
+    {
+      "file": "skeleton.json",
+      "name": "skeleton",
+      "type": "registry:ui",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "file": "tabs.json",
+      "name": "tabs",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-tabs"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "file": "textarea.json",
+      "name": "textarea",
+      "type": "registry:ui",
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "file": "tooltip.json",
+      "name": "tooltip",
+      "type": "registry:ui",
+      "dependencies": [
+        "@radix-ui/react-tooltip"
+      ],
+      "registryDependencies": []
+    }
+  ]
+}

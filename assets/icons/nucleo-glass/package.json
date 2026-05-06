@@ -1,0 +1,92 @@
+{
+  "name": "nucleo-glass-icons",
+  "type": "module",
+  "version": "0.1.11",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Icon component package for React and Vue, built on the open-source SVG Glass Icons by Nucleo.",
+  "license": "MIT",
+  "homepage": "https://github.com/tinglinzh/nucleo-glass-icons#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tinglinzh/nucleo-glass-icons.git"
+  },
+  "bugs": "https://github.com/tinglinzh/nucleo-glass-icons/issues",
+  "keywords": [
+    "icons",
+    "react-icon",
+    "vue-icon",
+    "nucleo-icon",
+    "glass-icon",
+    "nucleo-glass-icons",
+    "svg-icon"
+  ],
+  "sideEffects": false,
+  "exports": {
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.mjs",
+      "require": "./dist/react/index.cjs"
+    },
+    "./vue": {
+      "types": "./dist/vue/index.d.ts",
+      "import": "./dist/vue/index.mjs",
+      "require": "./dist/vue/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "icons"
+  ],
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "vue": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.10.1",
+    "@types/node": "^22.13.10",
+    "@types/react": "^18.2.0",
+    "bumpp": "^10.1.0",
+    "eslint": "^9.22.0",
+    "lint-staged": "^15.5.0",
+    "react": "^18.2.0",
+    "rolldown": "1.0.0-beta.34",
+    "rolldown-plugin-dts": "^0.15.9",
+    "rollup-plugin-visualizer": "^6.0.3",
+    "simple-git-hooks": "^2.11.1",
+    "svgo": "^3.2.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.1",
+    "vue": "^3.4.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm i --frozen-lockfile --ignore-scripts --offline && npx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  },
+  "scripts": {
+    "build": "rolldown -c rolldown.config.ts",
+    "dev": "rolldown -c rolldown.config.ts --watch",
+    "generate": "tsx scripts/generate.ts",
+    "lint": "eslint",
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "analyze": "pnpm run build && node scripts/view-stats.js",
+    "stats": "node scripts/view-stats.js",
+    "stats:react": "node scripts/view-stats.js 1",
+    "stats:vue": "node scripts/view-stats.js 2"
+  }
+}

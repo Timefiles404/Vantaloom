@@ -6,6 +6,13 @@
 
 来源：https://nucleoapp.com/app
 
+本地素材：
+
+- `assets/icons/nucleo-glass`
+- 当前拉取的是公开 npm 包 `nucleo-glass-icons@0.1.11`
+- 包内许可证为 MIT
+- React 组件清单见 `assets/icons/nucleo-glass/manifest.json`
+
 可借鉴内容：
 
 - 图标集按 UI、Core、Sharp、Pixel、Micro Bold 等体系组织
@@ -60,6 +67,13 @@ Vantaloom 取向：
 
 来源：https://www.reactbits.dev/
 
+本地素材：
+
+- `assets/motion/reactbits`
+- 已拉取 registry JSON 快照
+- 已保留上游 README 和 MIT 许可证
+- 未复制大体积视频、gif 和完整站点资源
+
 可借鉴内容：
 
 - 动效组件、文字动效、交互组件和背景动效
@@ -94,6 +108,12 @@ Vantaloom 取向：
 ## shadcn/ui
 
 来源：https://ui.shadcn.com/docs
+
+本地素材：
+
+- `assets/ux/shadcn`
+- 已拉取 New York 风格候选组件 registry JSON
+- 组件和依赖清单见 `assets/ux/shadcn/manifest.json`
 
 可借鉴内容：
 
