@@ -26,6 +26,8 @@ select {
 }
 
 .app-shell {
+  position: relative;
+  overflow: hidden;
   min-height: 100vh;
   display: grid;
   place-items: center;
@@ -34,6 +36,24 @@ select {
   background:
     radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.09), transparent 34%),
     #101010;
+}
+
+.welcome-layer {
+  display: grid;
+  place-items: center;
+  transform: scale(1);
+  opacity: 1;
+  filter: blur(0);
+  transition:
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 420ms ease,
+    filter 520ms ease;
+}
+
+.app-shell[data-settings-open="true"] .welcome-layer {
+  transform: scale(0.96);
+  opacity: 0.44;
+  filter: blur(18px);
 }
 
 .welcome-cards {
@@ -97,6 +117,120 @@ select {
   filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.24));
 }
 
+.settings-trigger {
+  position: fixed;
+  right: 28px;
+  bottom: 26px;
+  z-index: 10;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  background: linear-gradient(#fff2, rgba(255, 255, 255, 0.04));
+  box-shadow:
+    0 22px 42px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  color: #fff;
+  cursor: pointer;
+  --wails-draggable: no-drag;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background 220ms ease,
+    opacity 220ms ease;
+}
+
+.settings-trigger:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.24);
+  background: linear-gradient(#fff3, rgba(255, 255, 255, 0.07));
+}
+
+.settings-trigger:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.settings-trigger:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.72);
+  outline-offset: 4px;
+}
+
+.app-shell[data-settings-open="true"] .settings-trigger {
+  opacity: 0.72;
+}
+
+.settings-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  pointer-events: none;
+  --wails-draggable: no-drag;
+}
+
+.settings-overlay[data-open="true"] {
+  pointer-events: auto;
+}
+
+.settings-scrim {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0);
+  cursor: default;
+  opacity: 0;
+  transition:
+    opacity 360ms ease,
+    background 360ms ease;
+}
+
+.settings-overlay[data-open="true"] .settings-scrim {
+  background: rgba(0, 0, 0, 0.22);
+  opacity: 1;
+}
+
+.settings-panel {
+  position: relative;
+  width: min(560px, calc(100vw - 64px));
+  height: min(420px, calc(100vh - 64px));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.055));
+  box-shadow:
+    0 34px 90px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  opacity: 0;
+  transform: translateY(18px) scale(0.94);
+  transition:
+    opacity 360ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.settings-overlay[data-open="true"] .settings-panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-layer,
+  .settings-trigger,
+  .settings-scrim,
+  .settings-panel,
+  .welcome-glass-card {
+    transition: none;
+  }
+}
+
 @media (max-width: 640px) {
   .app-shell {
     padding: 24px;
@@ -111,5 +245,19 @@ select {
   .welcome-glass-card::before {
     height: 36px;
     font-size: 12px;
+  }
+
+  .settings-trigger {
+    right: 18px;
+    bottom: 18px;
+  }
+
+  .settings-overlay {
+    padding: 22px;
+  }
+
+  .settings-panel {
+    width: calc(100vw - 44px);
+    height: min(380px, calc(100vh - 44px));
   }
 }
