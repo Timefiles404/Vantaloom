@@ -344,6 +344,154 @@
         margin-bottom: 14px;
       }
 
+      .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+        gap: 10px;
+        max-height: 560px;
+        overflow: auto;
+        padding-right: 4px;
+      }
+
+      .preview-tile {
+        min-height: 148px;
+        display: grid;
+        grid-template-rows: minmax(86px, 1fr) auto;
+        gap: 8px;
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface-strong);
+      }
+
+      .preview-canvas {
+        position: relative;
+        min-height: 86px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.24), rgba(0, 0, 0, 0.04)),
+          var(--surface);
+      }
+
+      .preview-label {
+        color: var(--foreground);
+        font-size: 12px;
+        line-height: 1.25;
+        text-align: center;
+        overflow-wrap: anywhere;
+      }
+
+      .ui-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 78px;
+        height: 32px;
+        border-radius: 7px;
+        background: var(--foreground);
+        color: var(--background);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .ui-input {
+        width: 96px;
+        height: 30px;
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        background: var(--background);
+      }
+
+      .ui-line {
+        height: 8px;
+        border-radius: 999px;
+        background: var(--tag);
+      }
+
+      .ui-panel {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+      }
+
+      .motion-blur {
+        filter: blur(1px);
+        animation: motion-resolve 2.8s ease-in-out infinite;
+      }
+
+      .motion-float {
+        animation: motion-float 2.4s ease-in-out infinite;
+      }
+
+      .motion-spin {
+        animation: motion-spin 4.5s linear infinite;
+      }
+
+      .motion-pulse {
+        animation: motion-pulse 1.8s ease-in-out infinite;
+      }
+
+      .motion-shimmer {
+        background: linear-gradient(90deg, var(--tag), var(--foreground), var(--tag));
+        background-size: 180% 100%;
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: motion-shimmer 2.2s linear infinite;
+      }
+
+      @keyframes motion-resolve {
+        0%,
+        100% {
+          filter: blur(4px);
+          opacity: 0.55;
+        }
+
+        45%,
+        65% {
+          filter: blur(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes motion-float {
+        0%,
+        100% {
+          transform: translateY(4px);
+        }
+
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      @keyframes motion-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes motion-pulse {
+        0%,
+        100% {
+          opacity: 0.5;
+          transform: scale(0.96);
+        }
+
+        50% {
+          opacity: 1;
+          transform: scale(1.04);
+        }
+      }
+
+      @keyframes motion-shimmer {
+        to {
+          background-position: -180% 0;
+        }
+      }
+
       @media (max-width: 840px) {
         .topbar {
           align-items: flex-start;
@@ -543,8 +691,8 @@
             <span class="tag" id="reactBitsCount">loading</span>
           </div>
           <h2>动效组件名称</h2>
-          <p class="note">引用来源：assets/motion/reactbits/manifest.json</p>
-          <div class="name-grid" id="reactBitsNames"></div>
+          <p class="note">引用来源：assets/motion/reactbits/manifest.json。这里是简化预览，用于区分动效类型，不等同于完整组件运行效果。</p>
+          <div class="preview-grid" id="reactBitsNames"></div>
         </article>
 
         <article class="card asset-card">
@@ -553,8 +701,8 @@
             <span class="tag" id="shadcnCount">loading</span>
           </div>
           <h2>UX 组件名称</h2>
-          <p class="note">引用来源：assets/ux/shadcn/manifest.json</p>
-          <div class="name-grid" id="shadcnNames"></div>
+          <p class="note">引用来源：assets/ux/shadcn/manifest.json。每个小样表现组件用途和大致形态。</p>
+          <div class="preview-grid" id="shadcnNames"></div>
         </article>
 
         <article class="card asset-card">
@@ -602,6 +750,132 @@
         );
       };
 
+      const previewTile = (name, canvasHtml) => {
+        const item = document.createElement("div");
+        item.className = "preview-tile";
+        item.title = name;
+        item.innerHTML = `
+          <div class="preview-canvas">${canvasHtml}</div>
+          <div class="preview-label">${name}</div>
+        `;
+        return item;
+      };
+
+      const centered = (html) => `
+        <div style="height:100%;display:grid;place-items:center;padding:10px;">${html}</div>
+      `;
+
+      const shadcnPreview = (name) => {
+        const previews = {
+          badge: centered('<span class="tag">Status</span>'),
+          button: centered('<span class="ui-button">Button</span>'),
+          card: centered(
+            '<div class="ui-panel" style="width:96px;padding:10px;display:grid;gap:7px;"><div class="ui-line" style="width:62px"></div><div class="ui-line" style="width:78px"></div><div class="ui-line" style="width:42px"></div></div>'
+          ),
+          command: centered(
+            '<div class="ui-panel" style="width:110px;padding:8px;display:grid;gap:6px;"><div class="ui-input" style="width:92px;height:24px"></div><div class="ui-line" style="width:86px"></div><div class="ui-line" style="width:64px"></div></div>'
+          ),
+          dialog: centered(
+            '<div style="width:112px;height:70px;display:grid;place-items:center;background:rgba(0,0,0,.18);border-radius:8px;"><div class="ui-panel" style="width:82px;height:46px"></div></div>'
+          ),
+          "dropdown-menu": centered(
+            '<div class="ui-panel" style="width:94px;padding:8px;display:grid;gap:6px;"><div class="ui-line" style="width:64px"></div><div class="ui-line" style="width:72px"></div><div class="ui-line" style="width:46px"></div></div>'
+          ),
+          input: centered('<div class="ui-input"></div>'),
+          popover: centered(
+            '<div style="display:grid;gap:6px;justify-items:center;"><span class="ui-button" style="height:26px;min-width:66px">Open</span><div class="ui-panel" style="width:92px;height:34px"></div></div>'
+          ),
+          progress: centered(
+            '<div style="width:104px;height:10px;border-radius:999px;background:var(--tag);overflow:hidden;"><div style="width:62%;height:100%;background:var(--foreground);border-radius:inherit;"></div></div>'
+          ),
+          resizable: centered(
+            '<div style="width:112px;height:62px;display:grid;grid-template-columns:1fr 6px 1fr;gap:4px;"><div class="ui-panel"></div><div style="background:var(--border);border-radius:999px"></div><div class="ui-panel"></div></div>'
+          ),
+          "scroll-area": centered(
+            '<div class="ui-panel" style="width:104px;height:66px;padding:8px;overflow:hidden;position:relative;display:grid;gap:6px;"><div class="ui-line"></div><div class="ui-line"></div><div class="ui-line"></div><div style="position:absolute;right:5px;top:8px;width:4px;height:32px;border-radius:999px;background:var(--muted);"></div></div>'
+          ),
+          sidebar: centered(
+            '<div style="width:112px;height:70px;display:grid;grid-template-columns:34px 1fr;gap:6px;"><div class="ui-panel" style="display:grid;gap:6px;padding:7px;"><div class="ui-line"></div><div class="ui-line"></div><div class="ui-line"></div></div><div class="ui-panel"></div></div>'
+          ),
+          skeleton: centered(
+            '<div style="width:104px;display:grid;gap:8px;"><div class="ui-line motion-pulse" style="width:100%;height:14px"></div><div class="ui-line motion-pulse" style="width:72%;height:14px"></div></div>'
+          ),
+          tabs: centered(
+            '<div style="width:112px;display:grid;gap:8px;"><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;"><div class="ui-panel" style="height:22px;background:var(--foreground)"></div><div class="ui-panel" style="height:22px"></div><div class="ui-panel" style="height:22px"></div></div><div class="ui-panel" style="height:36px"></div></div>'
+          ),
+          textarea: centered('<div class="ui-input" style="width:104px;height:58px"></div>'),
+          tooltip: centered(
+            '<div style="display:grid;gap:8px;justify-items:center;"><div class="tag">Hint</div><span class="ui-button" style="height:26px;min-width:58px">Hover</span></div>'
+          )
+        };
+        return previews[name] ?? centered(`<span class="name-chip">${name}</span>`);
+      };
+
+      const renderShadcnPreviews = (targetId, components) => {
+        const target = document.getElementById(targetId);
+        target.replaceChildren(
+          ...components.map((component) => previewTile(component.name, shadcnPreview(component.name)))
+        );
+      };
+
+      const reactBitsPreview = (name) => {
+        const lower = name.toLowerCase();
+        if (lower.includes("text") || lower.includes("type") || lower.includes("split")) {
+          return centered(`<strong class="motion-shimmer" style="font-size:18px">${name}</strong>`);
+        }
+        if (lower.includes("blur") || lower.includes("fade") || lower.includes("reveal")) {
+          return centered(`<strong class="motion-blur" style="font-size:18px">${name}</strong>`);
+        }
+        if (lower.includes("glass")) {
+          return centered(
+            '<div class="vl-preview-glass" style="width:100px;height:54px;border:1px solid rgba(255,255,255,.24);border-radius:12px;background:rgba(255,255,255,.16);backdrop-filter:blur(12px);box-shadow:0 18px 36px rgba(0,0,0,.22);"></div>'
+          );
+        }
+        if (lower.includes("dock") || lower.includes("nav") || lower.includes("menu")) {
+          return centered(
+            '<div style="display:flex;gap:6px;align-items:end;"><span class="ui-panel motion-float" style="width:24px;height:24px"></span><span class="ui-panel motion-float" style="width:32px;height:32px;animation-delay:.12s"></span><span class="ui-panel motion-float" style="width:24px;height:24px;animation-delay:.22s"></span></div>'
+          );
+        }
+        if (lower.includes("grid") || lower.includes("pixel") || lower.includes("dither")) {
+          return centered(
+            '<div style="width:92px;height:62px;display:grid;grid-template-columns:repeat(6,1fr);gap:4px;">' +
+              Array.from({ length: 18 }, (_, index) => `<span class="motion-pulse" style="background:var(--foreground);opacity:${0.18 + (index % 5) * 0.12};border-radius:3px;"></span>`).join("") +
+              "</div>"
+          );
+        }
+        if (lower.includes("cursor") || lower.includes("trail") || lower.includes("spark")) {
+          return centered(
+            '<div style="width:98px;height:62px;position:relative;"><span style="position:absolute;left:16px;top:30px;width:8px;height:8px;border-radius:50%;background:var(--foreground);opacity:.22"></span><span style="position:absolute;left:40px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--foreground);opacity:.45"></span><span class="motion-pulse" style="position:absolute;left:66px;top:34px;width:16px;height:16px;border-radius:50%;background:var(--foreground);"></span></div>'
+          );
+        }
+        if (lower.includes("card") || lower.includes("stack")) {
+          return centered(
+            '<div style="position:relative;width:88px;height:62px;"><div class="ui-panel" style="position:absolute;inset:14px 18px 0 0;transform:rotate(-8deg)"></div><div class="ui-panel" style="position:absolute;inset:8px 9px 6px 9px;transform:rotate(3deg)"></div><div class="ui-panel" style="position:absolute;inset:0 0 12px 18px;transform:rotate(9deg)"></div></div>'
+          );
+        }
+        if (lower.includes("orb") || lower.includes("aurora") || lower.includes("plasma") || lower.includes("galaxy")) {
+          return centered(
+            '<div class="motion-pulse" style="width:66px;height:66px;border-radius:50%;background:radial-gradient(circle at 30% 25%, rgba(255,255,255,.9), rgba(160,160,160,.45) 35%, rgba(20,20,20,.12) 72%);"></div>'
+          );
+        }
+        if (lower.includes("count") || lower.includes("counter") || lower.includes("stepper")) {
+          return centered('<strong style="font-size:28px;font-variant-numeric:tabular-nums;">128</strong>');
+        }
+        if (lower.includes("line") || lower.includes("wave") || lower.includes("ribbon")) {
+          return centered(
+            '<svg viewBox="0 0 120 60" width="104" height="54" aria-hidden="true"><path d="M4 34 C24 6, 44 54, 64 28 S100 22, 116 34" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" class="motion-float"/></svg>'
+          );
+        }
+        return centered(
+          '<div style="display:grid;place-items:center;width:66px;height:66px;border:1px solid var(--border);border-radius:14px;background:var(--surface);"><span class="motion-spin" style="width:32px;height:32px;border:3px solid var(--tag);border-top-color:var(--foreground);border-radius:50%;"></span></div>'
+        );
+      };
+
+      const renderReactBitsPreviews = (targetId, names) => {
+        const target = document.getElementById(targetId);
+        target.replaceChildren(...names.map((name) => previewTile(name, reactBitsPreview(name))));
+      };
+
       const loadManifest = async (path) => {
         const response = await fetch(path);
         if (!response.ok) {
@@ -619,13 +893,16 @@
           renderIcons("nucleoNames", nucleo.icons);
           document.getElementById("nucleoCount").textContent = `${nucleo.iconCount} icons`;
 
-          renderNames("reactBitsNames", reactBits.components);
+          renderReactBitsPreviews(
+            "reactBitsNames",
+            reactBits.components.filter((name) => name !== "registry")
+          );
           document.getElementById("reactBitsCount").textContent =
-            `${reactBits.componentCount} component families`;
+            `${reactBits.componentCount - 1} component families`;
 
-          renderNames(
+          renderShadcnPreviews(
             "shadcnNames",
-            shadcn.components.map((component) => component.name)
+            shadcn.components
           );
           document.getElementById("shadcnCount").textContent = `${shadcn.componentCount} components`;
         })
