@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: 验证基础设施
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: apps/desktop/go.mod
+          cache-dependency-path: |
+            apps/desktop/go.sum
+
+      - name: 安装 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: 安装前端依赖
+        run: npm ci
+
+      - name: 检查前端
+        run: npm run desktop:lint
+
+      - name: 构建前端
+        run: npm run desktop:build
+
+      - name: 下载 Go 依赖
+        working-directory: apps/desktop
+        run: go mod download
+
+      - name: 测试 Go 模块
+        working-directory: apps/desktop
+        run: go test ./...

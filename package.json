@@ -1,0 +1,14 @@
+{
+  "name": "vantaloom",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "npm@10.9.2",
+  "workspaces": [
+    "apps/desktop/frontend"
+  ],
+  "scripts": {
+    "desktop:dev": "npm --workspace @vantaloom/desktop-frontend run dev",
+    "desktop:build": "npm --workspace @vantaloom/desktop-frontend run build",
+    "desktop:lint": "npm --workspace @vantaloom/desktop-frontend run lint"
+  }
+}
