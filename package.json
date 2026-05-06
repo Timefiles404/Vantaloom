@@ -4,11 +4,13 @@
   "private": true,
   "packageManager": "npm@10.9.2",
   "workspaces": [
-    "apps/desktop/frontend"
+    "apps/desktop/frontend",
+    "packages/ui"
   ],
   "scripts": {
     "desktop:dev": "npm --workspace @vantaloom/desktop-frontend run dev",
     "desktop:build": "npm --workspace @vantaloom/desktop-frontend run build",
-    "desktop:lint": "npm --workspace @vantaloom/desktop-frontend run lint"
+    "desktop:lint": "npm --workspace @vantaloom/desktop-frontend run lint",
+    "ui:typecheck": "npm --workspace @vantaloom/ui run typecheck"
   }
 }

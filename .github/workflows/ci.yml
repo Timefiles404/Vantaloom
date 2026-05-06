@@ -38,6 +38,9 @@ jobs:
       - name: 检查前端
         run: npm run desktop:lint
 
+      - name: 检查 UI 库
+        run: npm run ui:typecheck
+
       - name: 构建前端
         run: npm run desktop:build
 

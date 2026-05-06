@@ -1,0 +1,61 @@
+@layer vantaloom-tokens {
+  :root {
+    color-scheme: light;
+    --vl-radius-xs: 4px;
+    --vl-radius-sm: 6px;
+    --vl-radius-md: 8px;
+    --vl-radius-lg: 10px;
+    --vl-radius-xl: 14px;
+
+    --vl-background: oklch(0.985 0 0);
+    --vl-foreground: oklch(0.17 0 0);
+    --vl-surface: oklch(1 0 0);
+    --vl-surface-foreground: oklch(0.17 0 0);
+    --vl-muted: oklch(0.94 0 0);
+    --vl-muted-foreground: oklch(0.46 0 0);
+    --vl-border: oklch(0.88 0 0);
+    --vl-ring: oklch(0.56 0 0);
+    --vl-primary: oklch(0.2 0 0);
+    --vl-primary-foreground: oklch(0.985 0 0);
+
+    --vl-glass-background: oklch(1 0 0 / 72%);
+    --vl-glass-border: oklch(0.74 0 0 / 42%);
+    --vl-glass-shadow: 0 18px 48px oklch(0.2 0 0 / 12%);
+    --vl-glass-blur: 18px;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --vl-background: oklch(0.13 0 0);
+    --vl-foreground: oklch(0.96 0 0);
+    --vl-surface: oklch(0.18 0 0);
+    --vl-surface-foreground: oklch(0.96 0 0);
+    --vl-muted: oklch(0.24 0 0);
+    --vl-muted-foreground: oklch(0.68 0 0);
+    --vl-border: oklch(1 0 0 / 12%);
+    --vl-ring: oklch(0.68 0 0);
+    --vl-primary: oklch(0.94 0 0);
+    --vl-primary-foreground: oklch(0.17 0 0);
+
+    --vl-glass-background: oklch(0.2 0 0 / 62%);
+    --vl-glass-border: oklch(1 0 0 / 16%);
+    --vl-glass-shadow: 0 22px 56px oklch(0 0 0 / 42%);
+  }
+}
+
+@layer vantaloom-materials {
+  .vl-material-solid {
+    background: var(--vl-surface);
+    color: var(--vl-surface-foreground);
+    border: 1px solid var(--vl-border);
+  }
+
+  .vl-material-glass {
+    background: var(--vl-glass-background);
+    color: var(--vl-surface-foreground);
+    border: 1px solid var(--vl-glass-border);
+    box-shadow: var(--vl-glass-shadow);
+    backdrop-filter: blur(var(--vl-glass-blur));
+    -webkit-backdrop-filter: blur(var(--vl-glass-blur));
+  }
+}
