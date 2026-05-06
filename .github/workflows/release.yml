@@ -24,7 +24,7 @@ jobs:
             os: macos-latest
             artifact: Vantaloom-macos
           - platform: linux
-            os: ubuntu-latest
+            os: ubuntu-22.04
             artifact: Vantaloom-linux
 
     steps:
